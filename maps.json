@@ -1,0 +1,117 @@
+[
+  {
+    "Attack / Defense": {
+      "Dustbowl": 1024,
+      "Egypt": 1048576,
+      "Gorge": 2,
+      "Gravelpit": 512,
+      "Junction": 2097152,
+      "Steel": 524288
+    },
+    "Capture The Flag": {
+      "2Fort": 4096,
+      "Doublecross": 536870912,
+      "Sawmill": 67108864,
+      "Turbine": 131072,
+      "Well": 16384
+    },
+    "Control Points": {
+      "Badlands": 4,
+      "Fastlane": 65536,
+      "Foundry": 32,
+      "Freight": 1073741824,
+      "Granary": 16,
+      "Gullywash": 64,
+      "Snakewater": 128,
+      "Vanguard": 8,
+      "Well": 2048,
+      "Yukon": 134217728
+    },
+    "King Of The Hill": {
+      "Harvest": 268435456,
+      "Nucleus": 33554432,
+      "Sawmill": 16777216,
+      "Viaduct": 256
+    },
+    "Payload": {
+      "Badwater": 262144,
+      "Goldrush": 32768,
+      "Hoodoo": 8388608,
+      "Upward": 2147483648
+    },
+    "Payload Race": {
+      "Pipeline": 4194304
+    },
+    "Misc": {
+      "Hydro": 8192
+    }
+  },
+  {
+    "Attack / Defense": {
+      "Mountain Lab": 8
+    },
+    "Capture The Flag": {
+      "Landfall": 2097152
+    },
+    "Control Points": {
+      "5Gorge": 32,
+      "Coldfront": 4,
+      "Metalworks": 65536,
+      "Powerhouse": 16777216,
+      "Process": 16384,
+      "Standin": 8192,
+      "Sunshine": 32768
+    },
+    "King Of The Hill": {
+      "Badlands": 512,
+      "Highpass": 134217728,
+      "Kong King": 4096,
+      "Lakeside": 256,
+      "Suijin": 33554432
+    },
+    "Payload": {
+      "Barnblitz": 1024,
+      "Borneo": 536870912,
+      "Frontier": 64,
+      "Snowycoast": 1073741824,
+      "Swiftwater": 131072,
+      "Thundermountain": 2
+    },
+    "Payload Race": {
+      "Hightower": 1,
+      "Nightfall": 128
+    },
+    "Misc": {
+      "2Fort Invasion": 8388608,
+      "DeGroot Keep": 16,
+      "Doomsday": 2048,
+      "Probed": 67108864,
+      "Snowplow": 4194304,
+      "Watergate": 2147483648
+    }
+  },
+  {
+    "Mannpower": {
+      "Foundry": 2097152,
+      "Gorge": 4194304,
+      "Hellfire": 16777216,
+      "Thundermountain": 8388608
+    }
+  },
+  {
+    "Attack / Defense": {
+      "Mercenary Park": 32,
+      "Mossrock": 64
+    },
+    "King Of The Hill": {
+      "Brazil": 1024,
+      "Lazarus": 128
+    },
+    "Payload": {
+      "Enclosure": 512
+    },
+    "Payload Race": {
+      "Banana Bay": 256
+    }
+  }
+]
