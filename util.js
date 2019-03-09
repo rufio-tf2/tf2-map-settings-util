@@ -1,12 +1,14 @@
-const fs = require("fs");
+const fs = require('fs');
+const MAPS = require('./maps.json');
 
-function keyByMapId(obj) {
-  let result = {};
+function keyByMapBits(obj) {
+  const result = {};
   const mapTypes = Object.keys(obj);
   mapTypes.forEach(type => {
     const maps = obj[type];
-    Object.entries(maps).forEach(([name, id]) => {
-      result[id] = {
+    Object.entries(maps).forEach(([name, bits]) => {
+      result[bits] = {
+        bits,
         name,
         type
       };
@@ -15,6 +17,8 @@ function keyByMapId(obj) {
 
   return result;
 }
+
+const MAPS_BY_ID = MAPS.map(keyByMapBits);
 
 function toMapBits(string) {
   // 'selected_maps_bits: 3423420648'
@@ -26,8 +30,8 @@ function toMapBits(string) {
 
 function getMapCriteria(path) {
   return fs
-    .readFileSync(path, "utf-8")
-    .split("\n")
+    .readFileSync(path, 'utf-8')
+    .split('\n')
     .map(toMapBits);
 }
 
@@ -35,20 +39,44 @@ function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
 }
 
-function toBitsBucket(bits, bucket = []) {
+function parseBits(bits, bucket = []) {
   if (bits < 1) {
     return bucket;
   }
 
   const power = Math.floor(getBaseLog(2, bits));
-  const mapBit = Math.pow(2, power);
+  const mapBit = 2 ** power;
+
   bucket.push(mapBit);
 
-  return toBitsBucket(bits - mapBit, bucket);
+  return parseBits(bits - mapBit, bucket);
+}
+
+function toMapData(mapBitSum, index) {
+  const parsedBits = parseBits(mapBitSum);
+
+  if (!parsedBits || !parsedBits.length) {
+    return null;
+  }
+
+  return parsedBits.reduce((mapData, bitValue) => {
+    const { bits, name, type } = MAPS_BY_ID[index][bitValue];
+
+    mapData[type] = {
+      ...mapData[type],
+      [name]: bits
+    };
+
+    return mapData;
+  }, {});
+}
+
+function toInteger(str) {
+  return parseInt(str, 10);
 }
 
 module.exports = Object.freeze({
   getMapCriteria,
-  keyByMapId,
-  toBitsBucket
+  toInteger,
+  toMapData
 });
