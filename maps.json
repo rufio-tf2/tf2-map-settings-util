@@ -88,6 +88,11 @@
       "Probed": 67108864,
       "Snowplow": 4194304,
       "Watergate": 2147483648
+    },
+    "Pass Time": {
+      "Brickyard": 262144,
+      "Disctrict": 1048576,
+      "Timbertown": 524288
     }
   },
   {
