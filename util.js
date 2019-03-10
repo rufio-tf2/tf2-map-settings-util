@@ -1,31 +1,42 @@
 const fs = require('fs');
 const MAPS = require('./maps.json');
 
-function keyByMapBits(obj) {
-  const result = {};
-  const mapTypes = Object.keys(obj);
-  mapTypes.forEach(type => {
-    const maps = obj[type];
-    Object.entries(maps).forEach(([name, bits]) => {
-      result[bits] = {
-        bits,
-        name,
-        type
-      };
-    });
-  });
-
-  return result;
+function toInteger(str) {
+  return parseInt(str, 10);
 }
 
-const MAPS_BY_ID = MAPS.map(keyByMapBits);
+function getBaseLog(x, y) {
+  return Math.log(y) / Math.log(x);
+}
+
+function keyByMapBits(obj) {
+  return Object.entries(obj).reduce(
+    (accumulator, [type, maps]) => ({
+      ...accumulator,
+      ...Object.entries(maps).reduce(
+        (results, [name, bits]) => ({
+          ...results,
+          [bits]: { bits, name, type }
+        }),
+        {}
+      )
+    }),
+    {}
+  );
+}
+
+const MAPS_BY_BITS = MAPS.map(keyByMapBits);
+
+function getMapByBits(bucket, bits) {
+  return MAPS_BY_BITS[bucket][bits];
+}
 
 function toMapBits(string) {
   // 'selected_maps_bits: 3423420648'
   const mapBitsExpression = /(\d+)/;
   const { 1: mapBits } = string.match(mapBitsExpression);
 
-  return mapBits;
+  return toInteger(mapBits);
 }
 
 function getMapCriteria(path) {
@@ -33,10 +44,6 @@ function getMapCriteria(path) {
     .readFileSync(path, 'utf-8')
     .split('\n')
     .map(toMapBits);
-}
-
-function getBaseLog(x, y) {
-  return Math.log(y) / Math.log(x);
 }
 
 function parseBits(bits, bucket = []) {
@@ -60,7 +67,7 @@ function toMapData(mapBitSum, index) {
   }
 
   return parsedBits.reduce((mapData, bitValue) => {
-    const { bits, name, type } = MAPS_BY_ID[index][bitValue];
+    const { bits, name, type } = getMapByBits(index, bitValue);
 
     mapData[type] = {
       ...mapData[type],
@@ -71,12 +78,7 @@ function toMapData(mapBitSum, index) {
   }, {});
 }
 
-function toInteger(str) {
-  return parseInt(str, 10);
-}
-
 module.exports = Object.freeze({
   getMapCriteria,
-  toInteger,
   toMapData
 });
