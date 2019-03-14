@@ -1,4 +1,3 @@
-const fs = require('fs');
 const MAPS = require('./maps.json');
 
 function toInteger(str) {
@@ -39,13 +38,6 @@ function toMapBits(string) {
   return toInteger(mapBits);
 }
 
-function getMapCriteria(path) {
-  return fs
-    .readFileSync(path, 'utf-8')
-    .split('\n')
-    .map(toMapBits);
-}
-
 function parseBits(bits, bucket = []) {
   if (bits < 1) {
     return bucket;
@@ -76,6 +68,13 @@ function toMapData(mapBitSum, index) {
 
     return mapData;
   }, {});
+}
+
+function getMapCriteria(mapCriteriaFile) {
+  return mapCriteriaFile
+    .split('\n')
+    .map(toMapBits)
+    .map(toMapData);
 }
 
 module.exports = Object.freeze({
